@@ -1,0 +1,185 @@
+---
+title: "Stat240 Final SOCCER"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE,
+                      warning = FALSE, error = TRUE,
+                      fig.height = 3)
+library(tidyverse)
+library(ggplot2)
+library(readr)  
+```
+
+
+```{r}
+england_premier_league_teams_2018_to_2019_stats <- read_csv("../data/england-premier-league-teams-2018-to-2019-stats.csv")
+
+```
+
+
+Simon Keddie
+
+Shri Mokhasi
+
+Wenyu Shi
+
+Natalie Utomo
+
+# **Introduction**
+
+Soccer is more than just a sport—it's a worldwide obsession, followed by millions of fans and supported by billions of dollars of funding. Within soccer, the Premier League stands out as the most competitive and data rich league. With so much at stake for each team, player and fan, analysts are always searching for metrics or data that can determine success. But that raises the question: what statistical metric actually reflects the team’s overall performance, is there a singular metric that can determine the team's success in the rankings?
+ 
+
+Our project investigates 3 main questions: 
+
+**What patterns emerge from soccer player statistics across the league?**
+
+**How does goal differential—the difference between goals scored and goals conceded— impact a team’s final standing in the league?**
+
+**Can we predict the ranking of a team based on its goal differential?** 
+
+We hope to determine which performance metric affects the rankings by analyzing player and team data from the 2018-2019 season.
+
+
+We found that:
+- Teams with higher goal differentials tend to rank higher than teams with lower goal differentials.
+- Goal differential serves as a reliable metric to determine final standings of teams in the Premier League.
+
+# **Background**
+
+We got our dataset from:  
+- [**FootyStats**](https://footystats.org/)
+
+This contains the following CSV:  
+- `"England Premier League Teams 2018-2019 Stats"`
+
+FootyStats offers broad data coverage across 1500+ football leagues globally, with stats generated using their CSV and API service.
+
+This dataset contains 293 variables on various stats (wins, losses, goals, league position, etc), each with 20 observations. Each observation is one team in the league.
+
+We focus on **goal differential**, defined as:
+
+> **Goals Scored – Goals Conceded**
+
+There were **no unusual factors** that might have influenced our analysis or visualizations.
+
+## **Goal Differential and League Position**
+
+Below is a graph that depicts the relationship between a team’s league position and their goal differential for the 2018–2019 season. 
+
+```{r}
+
+filtered_data <- england_premier_league_teams_2018_to_2019_stats %>%
+  select(team_name, goal_difference, league_position) %>%
+  filter(!is.na(goal_difference) & !is.na(league_position))
+
+```
+
+
+```{r}
+
+ggplot(filtered_data, aes(x = goal_difference, y = league_position)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "blue") +
+  labs(title = "Goal Difference vs. League Position in 2018-2019",
+       x = "Goal Difference",
+       y = "League Position") +
+  scale_y_reverse()
+
+```
+
+
+
+
+The correlation between goal difference and league position:
+```{r}
+
+correlation <- cor(filtered_data$goal_difference, filtered_data$league_position)
+correlation
+
+```
+
+We create a summary to display information such as the intercept, coefficients, t-value, p-value, R-squared, and adjusted R-squared. 
+```{r}
+
+lm_model <- lm(league_position ~ goal_difference, data = filtered_data)
+
+summary(lm_model)
+
+```
+
+
+# Residual Plot
+```{r}
+
+ggplot(data = data.frame(fitted = fitted(lm_model), residuals = resid(lm_model)), 
+       aes(x = fitted, y = residuals)) +
+  geom_point(color = "blue") +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residuals vs Fitted Values",
+       x = "Fitted Values",
+       y = "Residuals")
+
+```
+
+
+# QQ Plot
+```{r}
+qqnorm(residuals(lm_model))
+qqline(residuals(lm_model), col = "blue", lwd = 2)
+```
+
+
+# Statistical Analysis
+
+## Dependent and Independent Variables
+
+- **Dependent Variable**: League Position
+- **Independent Variable**: Goal Difference
+
+## Hypotheses
+
+- **Null Hypothesis (H0)**: There is no relationship between goal difference and league position (the coefficient of goal difference is 0).
+- **Alternative Hypothesis (H1)**: There is a significant relationship between goal difference and league position (the coefficient of goal difference is not 0).
+
+## Least Squares Regression
+
+The goal was to predict league position based on the goal difference.
+
+### Residuals 
+
+Our residual points appear to be randomly scattered and follow no pattern which is good for out test
+
+### 1. Intercept and Coefficients:
+
+- **Intercept (10.5)**: This is the estimated league position when the goal difference is 0. Put simply, if a team has a goal difference of 0, they are predicted to be in position 10.5 on average (around the middle of the league).
+- **Goal Difference Coefficient (-0.17248)**: For every 1-unit increase in goal difference, the team’s predicted league position improves by 0.17248 positions. Since the coefficient is negative, it means that as goal difference increases, the team is likely to finish in a lower position (higher rank in the league).
+
+### 2. t-Value and p-Value:
+
+- **t-value (-12.11)** and **p-value (4.37e-10)** show that the coefficient for goal difference is statistically significant. Since the p-value is extremely small (much smaller than 0.05), we can confidently say that goal difference has a significant impact on league position.
+
+### 3. R-squared:
+
+- **R-squared (0.8907)**: This indicates that approximately 89% of the variation in league position can be explained by goal difference. This is a strong fit for the model.
+- **Adjusted R-squared (0.8846)**: This adjusts the R-squared value based on the number of predictors in the model (though it's just one). It’s still very high, confirming the
+
+
+## Discussion
+
+Our group project centred on **2018-2019** Premier League season data and explored whether "goal differential" can predict a team's final ranking. We used a linear regression model and found a negative correlation between goal difference and ranking.
+
+
+The p-value we obtained in the regression analysis is **4.37e-10**, which is a minimal number. The p-value implies that if the goal differential does not affect the rankings, then the effect of the goal differential on the final rankings of the teams we have gotten so far is a "coincidence" probability. However, this probability is relatively low in terms of the actual p-values we have calculated. Then, we can conclude that the goal differential significantly impacts a team's final ranking.
+
+
+For this analysis of seasonal data, our team used only data from the 2018-2019 season, so the sample available is very limited. Therefore, we cannot exclude that the team's performance is influenced by many factors, such as the weather of the game, the health of the entire team, and so on. Our research has limitations.
+
+
+In the process of analyzing, we encountered problems in several areas. Regarding data mobiles, we attempted to integrate data from multiple websites to expand the sample size and obtain more relevant factors. However, the datasets on the different websites were all formatted differently and very different regarding table topics, naming and formatting. Data cleansing and field matching are more difficult, so the data we can use directly is more limited. Additionally, some seasons and teams had missing data, so our team chose comparatively better datasets to analyze.
+
+
+To summarize, the conclusion of this project is that **goal differential** is a noteworthy indicator for a team's final ranking, but the team's final ranking is still affected by various factors.
+
