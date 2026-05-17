@@ -1,0 +1,6 @@
+Planet Name,Discovery Method,Discovery Year,Controversial Flag,Orbital Period [days],Planet Radius [Earth Radius],Planet Mass [Earth Mass],Orbit Semi-Major Axis [au],Eccentricity,Equilibrium Temperature [K],Insolation Flux [Earth Flux]
+55 Cnc b,Radial Velocity,1996,0,14.65160000,13.900,263.97850,0.113400,0.000000,700,
+55 Cnc c,Radial Velocity,2004,0,44.39890000,8.510,54.47380,0.237300,0.030000,,
+DMPP-1 b,Radial Velocity,2019,0,18.57000000,5.290,24.27000,0.146200,0.083000,877,
+GJ 876 b,Radial Velocity,1998,0,61.11660000,13.300,723.22350,0.208317,0.032400,,
+GJ 876 c,Radial Velocity,2000,0,30.08810000,14.000,226.98460,0.129590,0.255910,,

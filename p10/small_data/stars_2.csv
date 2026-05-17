@@ -1,0 +1,4 @@
+Star Name,Spectral Type,Stellar Effective Temperature [K],Stellar Radius [Solar Radius],Stellar Mass [Solar mass],Stellar Luminosity [log(Solar)],Stellar Surface Gravity [log10(cm/s**2)],Stellar Age [Gyr]
+HD 158259,G0,5801.89,1.21,1.08,0.212,4.25,
+K2-187,,5438.00,0.83,0.97,-0.210,4.60,
+WASP-47,,5552.00,1.14,1.04,0.032,4.34,6.500

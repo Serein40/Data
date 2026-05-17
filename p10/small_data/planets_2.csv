@@ -1,0 +1,6 @@
+Planet Name,Discovery Method,Discovery Year,Controversial Flag,Orbital Period [days],Planet Radius [Earth Radius],Planet Mass [Earth Mass],Orbit Semi-Major Axis [au],Eccentricity,Equilibrium Temperature [K],Insolation Flux [Earth Flux]
+HD 158259 b,Radial Velocity,2020,0,2.17800000,1.292,2.22000,,,1478,794.22
+K2-187 b,Transit,2018,0,0.77401000,1.200,1.87000,0.016400,,1815,
+K2-187 c,Transit,2018,0,2.87151200,1.400,2.54000,0.039200,,1173,
+K2-187 d,K2-187,Transit,2018,0,7.14958400,2.400,6.35000,0.072000,,865
+WASP-47 b,2012,Transit,0,4.15914920,12.640,363.60000,0.052000,0.002800,1275,534.00

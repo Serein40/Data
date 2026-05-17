@@ -1,0 +1,6 @@
+Planet Name,Discovery Method,Discovery Year,Controversial Flag,Orbital Period [days],Planet Radius [Earth Radius],Planet Mass [Earth Mass],Orbit Semi-Major Axis [au],Eccentricity,Equilibrium Temperature [K],Insolation Flux [Earth Flux]
+K2-133 e,Transit,2019,0,26.58410000,1.730,3.64000,0.134600,,296,1.80
+K2-138 b,Transit,2017,0,2.35309000,1.510,3.10000,0.033850,0.048000,1157,486.00
+K2-138 c,Transit,2017,0,3.56004000,2.299,6.31000,0.044610,0.045000,1012,279.00
+K2-138 d,Transit,2017,0,5.40479000,2.390,7.92000,0.058930,0.043000,888,160.00
+GJ 667 C c,Radial Velocity,2011,0,28.14000000,1.770,3.80000,0.125000,0.020000,,
